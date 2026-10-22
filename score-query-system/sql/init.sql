@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS course (
     id          BIGINT AUTO_INCREMENT PRIMARY KEY,
     course_code VARCHAR(32)  NOT NULL,
     course_name VARCHAR(128) NOT NULL,
-    credit      DOUBLE       NOT NULL,
+    credit      DECIMAL(4,2) NOT NULL,
     UNIQUE KEY uk_course_code (course_code)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

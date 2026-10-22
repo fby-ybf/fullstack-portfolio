@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 /**
  * 课程表：演示“一”方实体，credit 用于 GPA 加权。
  */
@@ -24,6 +26,6 @@ public class Course {
     private String courseName;
 
     /** 学分 */
-    @Column(nullable = false)
-    private Double credit;
+    @Column(nullable = false, precision = 4, scale = 2)
+    private BigDecimal credit;
 }

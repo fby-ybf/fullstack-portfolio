@@ -11,7 +11,7 @@ CREATE TABLE course (
     id          BIGINT AUTO_INCREMENT PRIMARY KEY,
     course_code VARCHAR(32)  NOT NULL UNIQUE,
     course_name VARCHAR(128) NOT NULL,
-    credit      DOUBLE       NOT NULL
+    credit      DECIMAL(4,2) NOT NULL
 );
 
 CREATE TABLE score (
