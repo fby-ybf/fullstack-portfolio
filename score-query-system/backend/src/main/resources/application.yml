@@ -1,0 +1,42 @@
+server:
+  port: 8080
+
+spring:
+  # 默认用 H2 内存库，无需任何外部依赖即可 `mvn spring-boot:run` 跑起来看效果
+  datasource:
+    url: jdbc:h2:mem:score;DB_CLOSE_DELAY=-1;MODE=MySQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: none          # 由 schema.sql 建表，结构可控、可纳入版本管理
+    properties:
+      hibernate.dialect: org.hibernate.dialect.H2Dialect
+    open-in-view: false
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+
+---
+# 生产 / Docker 部署：切到 MySQL。启动加 -Dspring.profiles.active=mysql
+# 并在 MySQL 中先执行仓库根 sql/init.sql 建表（sql.init.mode=never 表示不自动初始化）
+spring:
+  config:
+    activate:
+      on-profile: mysql
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/score?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:root}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQLDialect
+  sql:
+    init:
+      mode: never

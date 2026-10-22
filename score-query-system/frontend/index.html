@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生成绩查询系统</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>🎓 学生成绩查询系统</h1>
+    <p class="sub">Java 后端（Spring Boot + JPA）· 原生 HTML/CSS/JS 前端 · 演示项目</p>
+</header>
+
+<main>
+    <!-- 学生检索 -->
+    <section class="card">
+        <h2>学生检索</h2>
+        <div class="toolbar">
+            <input id="kw" type="text" placeholder="输入学号或姓名关键字">
+            <button onclick="searchStudents()">查询</button>
+        </div>
+        <table id="studentTable">
+            <thead>
+            <tr><th>学号</th><th>姓名</th><th>班级</th><th>专业</th><th>操作</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div class="pager">
+            <button onclick="prevStudentPage()">上一页</button>
+            <span id="studentPageInfo">第 1 页</span>
+            <button onclick="nextStudentPage()">下一页</button>
+        </div>
+    </section>
+
+    <!-- 学生成绩明细 + GPA -->
+    <section class="card" id="detailCard" style="display:none">
+        <h2><span id="detailName"></span> 的成绩明细</h2>
+        <p class="gpa">GPA（4.0 制）：<strong id="gpaVal">--</strong></p>
+        <table id="scoreTable">
+            <thead>
+            <tr><th>课程</th><th>课程代码</th><th>学分</th><th>分数</th><th>学期</th><th>考试类型</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+
+    <!-- 课程列表 + 班级平均分 -->
+    <section class="card">
+        <h2>课程与班级平均分</h2>
+        <table id="courseTable">
+            <thead>
+            <tr><th>代码</th><th>课程名</th><th>学分</th><th>班级平均分</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+</main>
+
+<footer>付博扬 · 全栈作品集演示 · 数据均为演示数据</footer>
+<script src="app.js"></script>
+</body>
+</html>

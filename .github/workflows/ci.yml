@@ -5,32 +5,22 @@ on:
   pull_request:
 
 jobs:
-  python-demos:
+  # Java 全栈：学生成绩查询系统（Spring Boot 3 + JPA + H2）
+  score-query-system:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        project: [score-api-demo, ragbot-demo, monitor-demo]
+    defaults:
+      run:
+        working-directory: score-query-system/backend
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - name: Install dependencies
-        working-directory: projects/${{ matrix.project }}
-        run: pip install -r requirements.txt
-      - name: Run tests
-        working-directory: projects/${{ matrix.project }}
-        run: pytest -q
-
-  javabackend-demo:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: "17"
+          java-version: "21"
           distribution: "temurin"
+          cache: maven
       - name: Build and test
-        working-directory: projects/javabackend-demo
         run: mvn -B test
+
+  # FastAPI 后端测试（EduRAG / 监控栈）将在对应项目加入后启用
+  # edurag-backend / monitor-backend 见各自目录 requirements.txt + pytest

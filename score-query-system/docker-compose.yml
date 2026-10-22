@@ -1,0 +1,23 @@
+# 可选：MySQL 部署方式（默认本地用 H2 即可，无需此文件）
+# 用法：在 score-query-system/ 目录执行
+#   docker compose up -d
+# 然后启动后端：mvn spring-boot:run -Dspring.profiles.active=mysql
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: score-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: score
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 5s
+      retries: 10
+
+volumes:
+  mysql-data:

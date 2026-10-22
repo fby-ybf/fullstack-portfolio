@@ -9,7 +9,14 @@ venv/
 *.db
 *.sqlite3
 
+# Java / Maven（子项目也已各自忽略）
+**/target/
+*.iml
+.idea/
+
+# Node（Vue 前端，子项目也已各自忽略）
+**/node_modules/
+
 # 系统 / 编辑器
 .DS_Store
-.idea/
 .vscode/

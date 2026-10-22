@@ -1,0 +1,66 @@
+:root {
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --primary: #2f6fed;
+    --border: #e3e8ef;
+    --text: #1f2933;
+    --muted: #6b7280;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+header {
+    background: linear-gradient(120deg, #2f6fed, #5b9bff);
+    color: #fff;
+    padding: 24px 32px;
+}
+header h1 { margin: 0; font-size: 22px; }
+header .sub { margin: 6px 0 0; opacity: .9; font-size: 13px; }
+
+main {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 0 16px;
+    display: grid;
+    gap: 16px;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
+}
+.card h2 { margin: 0 0 12px; font-size: 16px; }
+
+.toolbar { display: flex; gap: 8px; margin-bottom: 12px; }
+input[type=text] {
+    flex: 1; padding: 8px 10px; border: 1px solid var(--border);
+    border-radius: 6px; font-size: 14px;
+}
+button {
+    background: var(--primary); color: #fff; border: none;
+    padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px;
+}
+button:hover { opacity: .9; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); font-weight: 600; }
+td a, td button { font-size: 13px; padding: 4px 10px; }
+
+.pager { margin-top: 12px; display: flex; gap: 10px; align-items: center; }
+.pager #studentPageInfo { color: var(--muted); font-size: 13px; }
+
+.gpa { color: var(--muted); font-size: 14px; }
+.gpa strong { color: var(--primary); font-size: 18px; }
+
+footer { text-align: center; color: var(--muted); font-size: 12px; padding: 20px; }
