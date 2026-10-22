@@ -43,7 +43,8 @@
     <p class="role">全栈 / 后端开发助理工程师 · 2027 届 · 榆林大学 人工智能（本科）</p>
     <p class="intro">方向是 AI 应用的工程化落地：把知识库、模型与接口做成能部署、能验收、能维护的系统。
       下面按「金融壹账通 全栈开发助理工程师（成都）」岗位整理，突出 Java 后端、数据库设计与部署排障三条主线。
-      本页只展示经历与能力边界，不替代简历；项目真实代码未公开，以简历与面试为准。</p>
+      本页展示项目经历与能力边界；`projects/` 下的开源代码为本人独立编写的演示项目，
+      用于佐证工程能力，不代表实际交付项目的源码。</p>
   </header>
 
   <h2>项目经历（按岗位主线排序）</h2>
@@ -91,7 +92,38 @@
         <span class="tag">pytest</span><span class="tag">GitHub Actions</span>
       </div>
       <p>为服务埋点采集耗时与错误率，配置 3 条告警并逐条验证触发与恢复；Grafana 做巡检看板；
-        pytest 写 5 个用例接入 CI 做变更前回归。代码已计划在 GitHub 开源。</p>
+        pytest 写 5 个用例接入 CI 做变更前回归。</p>
+    </div>
+  </div>
+
+  <h2>开源代码（本仓库 projects/ 可查看）</h2>
+  <div class="grid">
+    <div class="proj">
+      <h3>score-api-demo</h3>
+      <div class="meta">FastAPI + SQLAlchemy + SQLite + 原生前端 · 6 个测试通过</div>
+      <div><span class="tag">全栈</span><span class="tag">三表设计</span><span class="tag">防 N+1</span><span class="tag">分页</span></div>
+      <p>学生/课程/成绩三表 + 唯一约束与索引；LEFT JOIN 一次算平均分、selectinload 预加载避免 N+1；
+        接口只吐响应模型声明的字段。</p>
+    </div>
+    <div class="proj">
+      <h3>ragbot-demo</h3>
+      <div class="meta">FastAPI + 余弦检索 + 可插拔 LLM · 6 个测试通过</div>
+      <div><span class="tag">AI 应用</span><span class="tag">检索—生成解耦</span><span class="tag">召回阈值</span></div>
+      <p>纯 Python 分词 + TF 加权 + 余弦相似度检索；设置召回阈值避免无关片段进 prompt；
+        生成环节做成可插拔 LLM 接口。</p>
+    </div>
+    <div class="proj">
+      <h3>monitor-demo</h3>
+      <div class="meta">FastAPI + Prometheus + Grafana · 3 个测试通过</div>
+      <div><span class="tag">部署运维</span><span class="tag">Histogram</span><span class="tag">告警规则</span></div>
+      <p>请求耗时直方图 / 计数 / 存活三类指标；错误率、P95、下线三条告警；docker compose 一键起栈。</p>
+    </div>
+    <div class="proj">
+      <h3>javabackend-demo</h3>
+      <div class="meta">Spring Boot 3 + MyBatis + H2 · 由 CI 云端编译验证</div>
+      <div><span class="tag">Java 后端</span><span class="tag">三层分层</span><span class="tag">MockMvc</span></div>
+      <p>Controller / Service / Mapper 三层 + 404 统一异常；MyBatis 注解 SQL；
+        本机无 JDK，由 GitHub Actions 编译测试。</p>
     </div>
   </div>
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>课程答疑 RAG（演示）</title>
+<style>
+  :root{--bg:#f5f7fb;--card:#fff;--ink:#1f2733;--sub:#6b7688;--accent:#2563eb;--line:#e6eaf2;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);}
+  .wrap{max-width:760px;margin:0 auto;padding:32px 20px 60px;}
+  h1{font-size:22px;margin:0 0 4px;}
+  .sub{color:var(--sub);margin:0 0 24px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;margin-bottom:16px;}
+  textarea{width:100%;height:80px;font:inherit;padding:10px;border:1px solid var(--line);border-radius:6px;resize:vertical;}
+  button{font:inherit;padding:9px 18px;background:var(--accent);color:#fff;border:none;border-radius:6px;cursor:pointer;margin-top:10px;}
+  .answer{background:#f8fafd;border:1px solid var(--line);border-radius:8px;padding:14px;margin-top:12px;white-space:pre-wrap;}
+  .hit{font-size:13px;color:var(--sub);padding:6px 0;border-bottom:1px dashed var(--line);}
+  .score{color:var(--accent);font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>课程答疑 RAG <span style="font-weight:400;color:var(--sub);">（演示 Demo）</span></h1>
+  <p class="sub">检索（余弦相似度）+ 生成（可插拔大模型）· 内置「数据结构 / 数据库」示例知识库</p>
+
+  <div class="card">
+    <h2 style="margin:0 0 10px;">提问</h2>
+    <textarea id="q" placeholder="例如：栈和队列有什么区别？">栈和队列有什么区别？</textarea>
+    <button onclick="ask()">提问</button>
+    <div id="ans" class="answer" style="display:none;"></div>
+    <div id="hits"></div>
+  </div>
+</div>
+<script>
+async function ask(){
+  const q = document.getElementById('q').value.trim();
+  if(!q) return;
+  const body = await fetch('/api/ask', {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({question:q})}).then(r=>r.json());
+  const ans = document.getElementById('ans');
+  ans.style.display=''; ans.textContent = body.answer;
+  document.getElementById('hits').innerHTML =
+    '<h2 style="margin:16px 0 8px;">检索到的片段</h2>' +
+    body.hits.map(h=>`<div class="hit"><span class="score">${h.score}</span> ${esc(h.text)}</div>`).join('');
+}
+function esc(s){return String(s).replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));}
+</script>
+</body>
+</html>
