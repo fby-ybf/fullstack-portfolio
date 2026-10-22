@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>付博扬 · 全栈 / 后端开发作品集（金融壹账通方向）</title>
+<style>
+  :root{
+    --bg:#0f1420; --card:#19202e; --ink:#e8ecf4; --sub:#9aa6bd;
+    --accent:#4f9dff; --line:#2a3344; --good:#52c41a; --warn:#ffb020;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.6;}
+  .wrap{max-width:960px;margin:0 auto;padding:40px 22px 60px;}
+  header{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:30px;}
+  h1{font-size:26px;margin:0 0 6px;}
+  .role{color:var(--accent);font-weight:600;margin:0 0 10px;}
+  .intro{color:var(--sub);max-width:680px;}
+  h2{font-size:18px;margin:38px 0 14px;border-left:3px solid var(--accent);padding-left:10px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+  .proj{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;}
+  .proj h3{margin:0 0 4px;font-size:16px;}
+  .meta{color:var(--sub);font-size:13px;margin-bottom:10px;}
+  .tag{display:inline-block;background:#22304a;color:#bcd2ff;border-radius:5px;
+    padding:2px 8px;font-size:12px;margin:0 6px 6px 0;}
+  .proj p{font-size:14px;color:#cdd6e8;margin:8px 0 0;}
+  .badge{font-size:12px;padding:1px 7px;border-radius:4px;margin-left:8px;}
+  .know{background:#23351f;color:var(--good);}
+  .skill{display:flex;flex-wrap:wrap;gap:8px;}
+  .skill span{background:#22304a;color:#bcd2ff;border-radius:6px;padding:4px 10px;font-size:13px;}
+  .note{background:var(--card);border:1px dashed var(--warn);border-radius:10px;
+    padding:16px 18px;color:#e9d9b8;font-size:14px;}
+  .note b{color:var(--warn);}
+  .contact{color:var(--sub);font-size:14px;margin-top:14px;}
+  a{color:var(--accent);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>付博扬</h1>
+    <p class="role">全栈 / 后端开发助理工程师 · 2027 届 · 榆林大学 人工智能（本科）</p>
+    <p class="intro">方向是 AI 应用的工程化落地：把知识库、模型与接口做成能部署、能验收、能维护的系统。
+      下面按「金融壹账通 全栈开发助理工程师（成都）」岗位整理，突出 Java 后端、数据库设计与部署排障三条主线。
+      本页只展示经历与能力边界，不替代简历；项目真实代码未公开，以简历与面试为准。</p>
+  </header>
+
+  <h2>项目经历（按岗位主线排序）</h2>
+  <div class="grid">
+    <div class="proj">
+      <h3>MaxKB4j 企业 RAG 知识库</h3>
+      <div class="meta">2024.09 – 2025.01 · Java / Spring Boot 3 后端 + 私有化交付</div>
+      <div>
+        <span class="tag">Spring Boot 3</span><span class="tag">Java 21</span>
+        <span class="tag">LangChain4j</span><span class="tag">MySQL</span>
+        <span class="tag">Docker</span><span class="tag">大模型 API</span>
+      </div>
+      <p>基于分层架构实现文档 / 会话 / 检索三类接口，打通「上传—分块—向量化—检索—生成」全链路；
+        在客户内网无外网环境完成私有化部署，解决端口冲突、依赖缺失、版本不兼容等 15+ 项问题，零故障上线，
+        沉淀部署手册与故障处理流程。</p>
+    </div>
+
+    <div class="proj">
+      <h3>学生成绩查询系统</h3>
+      <div class="meta">2023.10 – 2023.12 · 库表设计 + SQL 优化 + 前后端模块</div>
+      <div>
+        <span class="tag">Java</span><span class="tag">MySQL</span><span class="tag">SQL</span>
+        <span class="tag">HTML/CSS/JS</span>
+      </div>
+      <p>负责库表设计与字段口径统一，按查询路径加索引、改写分页，把统计与明细查询从全表扫描收紧到索引命中；
+        编写校验脚本处理 10+ 项数据异常，完成查询页与明细页及表单校验，覆盖 3 个班级、100+ 人次使用。</p>
+    </div>
+
+    <div class="proj">
+      <h3>EduRAG 学科在线答疑系统</h3>
+      <div class="meta">2025.03 – 2025.07 · 服务接口开发 + 多服务部署</div>
+      <div>
+        <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Milvus</span>
+        <span class="tag">Redis</span><span class="tag">Docker Compose</span>
+      </div>
+      <p>用 FastAPI 实现问答 / 文档 / 会话接口；设计 FAQ 库（500+ 条）与知识库融合查询，命中阈值 0.85 直接返回；
+        用 Milvus 向量检索 + BM25 关键词双路召回；Docker Compose 编排多服务，解决 20+ 项异常。</p>
+    </div>
+
+    <div class="proj">
+      <h3>可观测性监控栈<span class="badge know">自建</span></h3>
+      <div class="meta">2026.09 至今 · 独立开发（对接投递岗位）</div>
+      <div>
+        <span class="tag">FastAPI</span><span class="tag">Prometheus</span><span class="tag">Grafana</span>
+        <span class="tag">pytest</span><span class="tag">GitHub Actions</span>
+      </div>
+      <p>为服务埋点采集耗时与错误率，配置 3 条告警并逐条验证触发与恢复；Grafana 做巡检看板；
+        pytest 写 5 个用例接入 CI 做变更前回归。代码已计划在 GitHub 开源。</p>
+    </div>
+  </div>
+
+  <h2>技术栈</h2>
+  <div class="skill">
+    <span>Java / Spring Boot 3</span><span>RESTful / 接口设计</span><span>MySQL / SQL 优化</span>
+    <span>Python / FastAPI</span><span>Docker / Compose</span><span>Git / CI</span>
+    <span>RAG: LangChain4j · Milvus</span><span>Redis 缓存</span><span>Prometheus / Grafana</span>
+    <span>HTML / CSS / JS</span><span>AI 辅助编码（Cursor / Claude Code）</span>
+  </div>
+
+  <h2>能力边界（诚实声明）</h2>
+  <div class="note">
+    <b>已上手 / 可独立交付：</b>Java 后端模块开发、MySQL 库表设计与索引优化、Docker 容器化部署与排障、
+    FastAPI 接口开发、Prometheus/Grafana 监控、pytest + CI 回归。<br/><br/>
+    <b>了解思路、无生产实操：</b>分库分表、分布式事务（Seata / TCC）、微服务 / Spring Cloud、
+    Redis 进阶用法、React / TypeScript / Vite / Webpack（仅在课程与自学中接触，未用于生产项目）。<br/><br/>
+    <b>未涉及：</b>金融业务（资金流 / 账户体系 / 风控规则）、高并发生产系统、Kubernetes 生产落地。
+    面试中只陈述真实做过的内容。
+  </div>
+
+  <h2>联系</h2>
+  <p class="contact">邮箱：1502430239@qq.com　·　GitHub：github.com/fby-ybf<br/>
+    本作品集随岗位调整，更多方向与简历详见对应投递版本。</p>
+</div>
+</body>
+</html>
