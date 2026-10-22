@@ -1,8 +1,9 @@
 package com.fby.score.service;
 
-import com.fby.score.dto.ScoreView;
+import com.fby.score.entity.Score;
 import com.fby.score.repository.ScoreRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,18 +23,19 @@ public class StatsService {
      */
     @Transactional(readOnly = true)
     public BigDecimal computeGpa(Long studentId) {
-        List<ScoreView> all = scoreRepository.findByStudentId(studentId);
+        List<Score> all = scoreRepository.findByStudentId(studentId);
         if (all.isEmpty()) {
             return BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
         }
         // 同一课程保留最高分
         java.util.Map<String, BigDecimal> best = new java.util.HashMap<>();
         java.util.Map<String, BigDecimal> creditOf = new java.util.HashMap<>();
-        for (ScoreView v : all) {
-            BigDecimal cur = best.getOrDefault(v.getCourseCode(), BigDecimal.ZERO);
-            if (v.getScore().compareTo(cur) > 0) {
-                best.put(v.getCourseCode(), v.getScore());
-                creditOf.put(v.getCourseCode(), v.getCredit());
+        for (Score sc : all) {
+            String code = sc.getCourse().getCourseCode();
+            BigDecimal cur = best.getOrDefault(code, BigDecimal.ZERO);
+            if (sc.getScore().compareTo(cur) > 0) {
+                best.put(code, sc.getScore());
+                creditOf.put(code, sc.getCourse().getCredit());
             }
         }
         BigDecimal creditSum = BigDecimal.ZERO;
@@ -53,14 +55,13 @@ public class StatsService {
     /** 某课程的全班平均分（百分制） */
     @Transactional(readOnly = true)
     public BigDecimal classAverage(Long courseId) {
-        List<ScoreView> all = scoreRepository.search(null, courseId,
-                org.springframework.data.domain.Pageable.unpaged()).getContent();
+        List<Score> all = scoreRepository.search(null, courseId, Pageable.unpaged()).getContent();
         if (all.isEmpty()) {
             return BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
         }
         BigDecimal sum = BigDecimal.ZERO;
-        for (ScoreView v : all) {
-            sum = sum.add(v.getScore());
+        for (Score sc : all) {
+            sum = sum.add(sc.getScore());
         }
         return sum.divide(BigDecimal.valueOf(all.size()), 2, RoundingMode.HALF_UP);
     }
