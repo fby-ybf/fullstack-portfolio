@@ -1,0 +1,30 @@
+# EduRAG 一键编排：前端(Vue) + 后端(FastAPI) + Redis
+# 用法：在 edurag-qa-fullstack/ 目录执行  docker compose up --build
+#
+# 关于 Milvus：生产向量库。本地零依赖演示用本地 TF-IDF（EMBEDDING_MODE=local）。
+# 接入 Milvus 时把后端环境变量 EMBEDDING_MODE=milvus 并填 MILVUS_HOST/PORT，
+# 单独用 Milvus 官方 standalone 编排（需 etcd + minio），此处不默认拉起以免过重。
+services:
+  backend:
+    build: ./backend
+    environment:
+      - LLM_MODE=fake
+      - EMBEDDING_MODE=local
+      - FAQ_THRESHOLD=0.85
+      - REDIS_URL=redis://redis:6379/0
+    expose:
+      - "8000"
+    depends_on:
+      - redis
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+  redis:
+    image: redis:7-alpine
+    expose:
+      - "6379"

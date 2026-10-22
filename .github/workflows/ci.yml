@@ -22,5 +22,20 @@ jobs:
       - name: Build and test
         run: mvn -B test
 
-  # FastAPI 后端测试（EduRAG / 监控栈）将在对应项目加入后启用
-  # edurag-backend / monitor-backend 见各自目录 requirements.txt + pytest
+  # FastAPI 后端：EduRAG 问答系统
+  edurag-backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: edurag-qa-fullstack/backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run tests
+        run: pytest -q
+
+  # monitor-backend 见下方（监控栈加入后启用）
