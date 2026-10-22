@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  python-demos:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [score-api-demo, ragbot-demo, monitor-demo]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        working-directory: projects/${{ matrix.project }}
+        run: pip install -r requirements.txt
+      - name: Run tests
+        working-directory: projects/${{ matrix.project }}
+        run: pytest -q
+
+  javabackend-demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+      - name: Build and test
+        working-directory: projects/javabackend-demo
+        run: mvn -B test
