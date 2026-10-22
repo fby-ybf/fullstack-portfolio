@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 数据库文件（演示运行时生成，不入库）
+*.db
+*.sqlite3
+
+# 系统 / 编辑器
+.DS_Store
+.idea/
+.vscode/
