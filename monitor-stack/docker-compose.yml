@@ -1,0 +1,38 @@
+# 可观测性监控栈：后端埋点 + Prometheus + Alertmanager + Grafana + 告警面板
+# 用法：在 monitor-stack/ 目录执行  docker compose up --build
+services:
+  backend:
+    build: ./backend
+    expose:
+      - "8000"
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    expose:
+      - "9090"
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    command: ["--config.file=/etc/alertmanager/config.yml"]
+    volumes:
+      - ./config/alertmanager.yml:/etc/alertmanager/config.yml:ro
+    expose:
+      - "9093"
+
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend

@@ -1,0 +1,42 @@
+{
+  "title": "Monitor Stack Demo",
+  "uid": "monitor-stack-demo",
+  "schemaVersion": 39,
+  "version": 1,
+  "editable": true,
+  "time": { "from": "now-1h", "to": "now" },
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "请求速率 (rate(monitor_requests_total[1m]))",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "targets": [
+        { "expr": "rate(monitor_requests_total[1m])", "refId": "A", "legendFormat": "{{method}} {{endpoint}}" }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "在途请求 (monitor_requests_in_flight)",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [
+        { "expr": "monitor_requests_in_flight", "refId": "A" }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "heatmap",
+      "title": "请求延迟分布 (monitor_request_latency_seconds)",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 8 },
+      "targets": [
+        { "expr": "rate(monitor_request_latency_seconds_bucket[1m])", "refId": "A" }
+      ]
+    }
+  ],
+  "templating": { "list": [] },
+  "annotations": { "list": [] }
+}
